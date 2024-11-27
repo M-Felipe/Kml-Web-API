@@ -40,7 +40,7 @@ Certifique-se de ter os seguintes softwares instalados em seu ambiente:
 
 2. Navegue até a pasta do projeto:
     ```bash
-    cd kml-filter-api
+    cd kml-web-api
     ```
 
 3. Restaure as dependências do projeto:

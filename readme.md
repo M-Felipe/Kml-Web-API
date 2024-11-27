@@ -35,7 +35,7 @@ Certifique-se de ter os seguintes softwares instalados em seu ambiente:
 
 1. Clone o repositório para sua máquina local:
     ```bash
-    git clone https://github.com/seu-usuario/kml-filter-api.git
+    git clone https://github.com/m-felipe/kml-filter-api.git
     ```
 
 2. Navegue até a pasta do projeto:

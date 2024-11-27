@@ -34,51 +34,56 @@ Certifique-se de ter os seguintes softwares instalados em seu ambiente:
 ## Instalação
 
 1. Clone o repositório para sua máquina local:
-   ```bash
-   git clone https://github.com/seu-usuario/kml-filter-api.git
+    ```bash
+    git clone https://github.com/seu-usuario/kml-filter-api.git
+    ```
 
 2. Navegue até a pasta do projeto:
     ```bash
     cd kml-filter-api
+    ```
 
 3. Restaure as dependências do projeto:
     ```bash
     dotnet restore
+    ```
 
 4. Execute a aplicação:
     ```bash
     dotnet run
+    ```
 
-5. A API estará rodando em http://localhost:5000 ou outro URL:PORTA configurado.
-  Estarei utilizando o swagger então minha URL é http://localhost:5259/swagger/index.html
+5. A API estará rodando em `http://localhost:5000` ou outro URL:PORTA configurado. 
+   Como você estará utilizando o Swagger, sua URL será: `http://localhost:5259/swagger/index.html`
 
 ## Endpoints
-### Exportar Novo Arquivo KML
 
-**1- Exportar Novo Arquivo KML**
+### 1. Exportar Novo Arquivo KML
+
 - **Método**: `POST`
 - **URL**: `/api/placemarks/export`
 - **Parâmetros**:
-  - `cliente` (string): Filtro por cliente (opcional).
-  - `situacao` (string): Filtro por situação (opcional).
-  - `bairro` (string): Filtro por bairro (opcional).
-  - `referencia` (string): Texto parcial para filtro por referência (mínimo 3 caracteres).
-  - `ruaCruzamento` (string): Texto parcial para filtro por rua/cruzamento (mínimo 3 caracteres).
+    - `cliente` (string): Filtro por cliente (opcional).
+    - `situacao` (string): Filtro por situação (opcional).
+    - `bairro` (string): Filtro por bairro (opcional).
+    - `referencia` (string): Texto parcial para filtro por referência (mínimo 3 caracteres).
+    - `ruaCruzamento` (string): Texto parcial para filtro por rua/cruzamento (mínimo 3 caracteres).
 
-- **Resposta**:
-  - Retorna o arquivo KML filtrado como um download.
+- **Resposta**: Retorna o arquivo KML filtrado como um download.
 
 #### Exemplo de cURL:
-    curl -X 'POST' 
-    'http://localhost:5259/api/Placemark/export' 
-    -H 'accept: */*' 
-    -H 'Content-Type: application/json' 
-    -d '{
-        "cliente": "GRADE",
-        "bairro": "CENTRO"
-    }' --output exportedFile.kml
+```bash
+curl -X 'POST' 
+  'http://localhost:5259/api/Placemark/export' 
+  -H 'accept: */*' 
+  -H 'Content-Type: application/json' 
+  -d '{
+      "cliente": "GRADE",
+      "bairro": "CENTRO"
+  }' --output exportedFile.kml
+```
 
-  ### 2. Listar Placemarks Filtrados
+### 2. Listar Placemarks Filtrados
 
 - **Método**: `GET`
 - **URL**: `/api/placemarks`
@@ -93,10 +98,11 @@ Certifique-se de ter os seguintes softwares instalados em seu ambiente:
   - Retorna os elementos filtrados no formato JSON.
 
 #### Exemplo de cURL:
-    curl -X 'GET'
-    'http://localhost:5259/api/Placemark?cliente=GRADE&bairro=CENTRO'
-    -H 'accept: */*'
-
+```bash
+  curl -X 'GET'
+  'http://localhost:5259/api/Placemark?cliente=GRADE&bairro=CENTRO'
+  -H 'accept: */*'
+```
 
 ### 3. Obter Valores para Filtragem
 
@@ -106,6 +112,8 @@ Certifique-se de ter os seguintes softwares instalados em seu ambiente:
   - Retorna os valores únicos para os filtros disponíveis (CLIENTE, SITUAÇÃO, BAIRRO).
 
 #### Exemplo de cURL:
-    curl -X 'GET' 
-    'http://localhost:5259/api/Placemark/filters' 
-    -H 'accept: */*'
+```bash
+  curl -X 'GET' 
+  'http://localhost:5259/api/Placemark/filters' 
+  -H 'accept: */*'
+```

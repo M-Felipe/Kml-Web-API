@@ -16,7 +16,7 @@ namespace KmlFilterAPI.Controllers
 
         public PlacemarkController(IKmlService kmlService)
         {
-            _kmlService = kmlService ?? throw new ArgumentNullException(nameof(kmlService));
+            _kmlService = kmlService;
         }
 
         /// <summary>
@@ -46,13 +46,8 @@ namespace KmlFilterAPI.Controllers
                 var fileName = Path.GetFileName(filePath);
                 return File(fileBytes, "application/vnd.google-earth.kml+xml", fileName);
             }
-            // catch (ArgumentException ex)
-            // {
-            //     return BadRequest(ex.Message);
-            // }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Log a exceção aqui, se necessário
                 return BadRequest("Erro ao processar a solicitação.");
             }
         }
@@ -75,9 +70,8 @@ namespace KmlFilterAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Log a exceção aqui, se necessário
                 return BadRequest("Erro ao processar a solicitação.");
             }
         }
@@ -101,9 +95,8 @@ namespace KmlFilterAPI.Controllers
 
                 return Ok(filters);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Log a exceção aqui, se necessário
                 return BadRequest("Erro ao processar a solicitação.");
             }
         }

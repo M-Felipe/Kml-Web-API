@@ -12,6 +12,11 @@ public class KmlService : IKmlService
     private readonly KmlFile _kmlFile;
     private readonly List<PlacemarkModel> _placemarks;
 
+    /// <summary>
+    /// Inicializa uma nova instância da classe KmlService.
+    /// </summary>
+    /// <param name="kmlFilePath"></param>
+    /// <exception cref="FileNotFoundException"></exception>
     public KmlService(string kmlFilePath)
     {
         if (!File.Exists(kmlFilePath))
@@ -27,11 +32,14 @@ public class KmlService : IKmlService
         _placemarks = ExtractPlacemarks();
     }
 
+    /// <summary>
+    /// Extrai os Placemarks do arquivo KML.
+    /// </summary>
+    /// <returns></returns>
     private List<PlacemarkModel> ExtractPlacemarks()
     {
         var placemarks = new List<PlacemarkModel>();
 
-        // Verificar se a raiz é um Document ou um Folder
         var rootContainer = (_kmlFile.Root as Kml)?.Feature as Container;
 
         if (rootContainer != null)
@@ -55,13 +63,14 @@ public class KmlService : IKmlService
         return placemarks;
     }
 
-
+    /// <summary>
+    /// Filtra os itens do Placemarks de acordo com os filtros informados.
+    /// </summary>
+    /// <param name="filters"></param>
+    /// <returns></returns>
     public IEnumerable<PlacemarkModel> FilterPlacemarks(FilterModel filters)
     {
-        // Aplicar validações dos filtros
         ValidateFilters(filters);
-
-        // Filtrar os placemarks
         return _placemarks.Where(p =>
             (string.IsNullOrEmpty(filters.Cliente) || p.Cliente == filters.Cliente) &&
             (string.IsNullOrEmpty(filters.Situacao) || p.Situacao == filters.Situacao) &&
@@ -82,6 +91,11 @@ public class KmlService : IKmlService
         };
     }
 
+    /// <summary>
+    /// Exporta os Placemarks filtrados para um arquivo KML que é salvo na pasta temporaria do servidor.
+    /// </summary>
+    /// <param name="placemarks"></param>
+    /// <returns></returns>
     public string ExportFilteredKml(IEnumerable<PlacemarkModel> placemarks)
     {
         var document = new Document();
@@ -111,9 +125,14 @@ public class KmlService : IKmlService
             KmlFile.Create(kml, false).Save(stream);
         }
 
-        return outputFilePath; // Retornar o caminho do arquivo gerado
+        return outputFilePath;
     }
 
+    /// <summary>
+    /// Valida os filtros de pesquisa.
+    /// </summary>
+    /// <param name="filters"></param>
+    /// <exception cref="ArgumentException"></exception>
     private void ValidateFilters(FilterModel filters)
     {
         if (!string.IsNullOrEmpty(filters.Referencia) && filters.Referencia.Length < 3)
